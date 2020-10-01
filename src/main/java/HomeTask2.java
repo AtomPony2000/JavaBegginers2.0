@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Калькулятор
+ */
 public class HomeTask2 {
 
     static Scanner scanner = new Scanner(System.in);
@@ -12,23 +15,28 @@ public class HomeTask2 {
      */
     public static void main(String[] args) {
         float num1 = getFloat();
-        float num2 = getFloat();
+        System.out.println(num1);
         char operation = getOperation();
-        String result = String.format("%.4f", calc(num1, num2, operation));
+        System.out.println(num1 + " " + operation);
+        float num2 = getFloat();
+        System.out.println(num1 + " " + operation + " " + num2);
+        String result = String.format("%.4f", calc(num1, operation, num2));
         System.out.println("Результат операции: " + result);
     }
 
     /**
      * Cчитываем с консоли float
+     *
      * @return
      */
     public static float getFloat() {
         System.out.println("Введите число:");
-        return Float.parseFloat(scanner.nextLine());
+        return Float.parseFloat(scanner.next());
     }
 
     /**
      * Cчитывать с консоли тип операции
+     *
      * @return
      */
     public static char getOperation() {
@@ -38,12 +46,13 @@ public class HomeTask2 {
 
     /**
      * Арифметическая операция
+     *
      * @param num1
      * @param num2
      * @param operation
      * @return
      */
-    public static float calc(float num1, float num2, char operation) {
+    public static float calc(float num1, char operation, float num2) {
         float result;
         switch (operation) {
             case '+':
@@ -60,7 +69,7 @@ public class HomeTask2 {
                 break;
             default:
                 System.out.println("Операция не распознана. Повторите ввод.");
-                result = calc(num1, num2, getOperation());
+                result = calc(num1, getOperation(), num2);
         }
         return result;
     }
