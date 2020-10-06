@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Калькулятор
  */
-public class HomeTask2 {
+public class HomeTask2Calculator {
 
     static Scanner scanner = new Scanner(System.in);
 
@@ -13,7 +13,7 @@ public class HomeTask2 {
      *
      * @param args
      */
-    public static void main(String[] args) {
+    public String calculate(String[] args) {
         float num1 = getFloat();
         System.out.println(num1);
         char operation = getOperation();
@@ -22,6 +22,7 @@ public class HomeTask2 {
         System.out.println(num1 + " " + operation + " " + num2);
         String result = String.format("%.4f", calc(num1, operation, num2));
         System.out.println("Результат операции: " + result);
+        return result;
     }
 
     /**
