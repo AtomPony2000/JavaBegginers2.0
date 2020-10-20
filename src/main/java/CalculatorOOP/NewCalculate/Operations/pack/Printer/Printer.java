@@ -6,6 +6,6 @@ public class Printer {
     }
 
     public void error() {
-        System.out.println("Loshara");
+        System.out.println("Нет такой операции!");
     }
 }
