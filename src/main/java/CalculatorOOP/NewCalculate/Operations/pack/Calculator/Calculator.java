@@ -5,6 +5,9 @@ import CalculatorOOP.NewCalculate.Operations.pack.Printer.Printer;
 import CalculatorOOP.NewCalculate.Operations.pack.Proccesor.Proccesor;
 import CalculatorOOP.NewCalculate.Operations.pack.Proccesor.ProccesorImpl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Calculator {
     private Proccesor proccesor;
     private Printer printer;
@@ -16,26 +19,25 @@ public class Calculator {
         inputValueScanner = new InputValueScanner();
     }
 
-    public void calculate() {
-        float result = 0;
-        float firstValue = 0;
-        float secondValue = 0;
-        String operation = null;
+    public Map<String, Object> readInputValues() {
+
+        Map<String, Object> values = new HashMap();
+
         boolean firstValueInit = false, secondValueInit = false, operationInit = false;
 
         while (!firstValueInit || !secondValueInit || !operationInit) {
             try {
                 if (!firstValueInit) {
-                    firstValue = inputValueScanner.getValue();
+                    values.put("firstValue", inputValueScanner.getValue());
                     firstValueInit = true;
                 }
                 if (!operationInit) {
-                    operation = inputValueScanner.getOperation();
+                    values.put("operation", inputValueScanner.getOperation());
                     operationInit = true;
                 }
                 if (!secondValueInit) {
-                    secondValue = inputValueScanner.getValue();
-                    if (secondValue == 0 && "/".equals(operation)) {
+                    values.put("secondValue", inputValueScanner.getValue());
+                    if ((Float) values.get("secondValue") == 0 && "/".equals(values.get("operation"))) {
                         throw new IllegalArgumentException("Деление на ноль запрещено");
                     }
                     secondValueInit = true;
@@ -43,7 +45,16 @@ public class Calculator {
             } catch (IllegalArgumentException e) {
                 System.err.println("Ошибка: " + e.getMessage());
             }
+
         }
+        return values;
+    }
+
+    public void calculate() {
+        float result = 0;
+        float firstValue = (float) readInputValues().get("firstValue");
+        float secondValue = (float) readInputValues().get("secondValue");
+        String operation = (String) readInputValues().get("operation");
 
         switch (operation) {
             case "+":
